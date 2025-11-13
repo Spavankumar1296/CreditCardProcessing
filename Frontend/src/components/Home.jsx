@@ -58,7 +58,7 @@ export default function Home() {
   async function fetchBalance() {
     try {
       const res = await axios.get(
-        "http://localhost:3000/api/v1/Account/balance",
+        `${API_BASE}/api/v1/Account/balance`,
         getAuthHeaderObj()
       );
       setBalance(res.data.balance ?? res.data);

@@ -73,7 +73,7 @@ export default function ViewTransactions() {
         // IMPORTANT: Add timestamp to prevent caching
         const timestamp = new Date().getTime();
         const res = await axios.get(
-          `http://localhost:3000/api/v1/Account/transactions?t=${timestamp}`, 
+          `${API_BASE}/api/v1/Account/transactions?t=${timestamp}`, 
           authHeaders()
         );
         

@@ -56,7 +56,7 @@ export function Transfer() {
       const token = localStorage.getItem("token");
       // console.log("token : ", token);
       const res = await axios.post(
-        "http://localhost:3000/api/v1/user/bulk",
+        `${API_BASE}/api/v1/user/bulk`,
         {
           auth: token,
         },
@@ -103,7 +103,7 @@ export function Transfer() {
     try {
       const token = localStorage.getItem("token") || "";
       const res = await axios.post(
-        "http://localhost:3000/api/v1/Account/transaction",
+        `${API_BASE}/api/v1/Account/transaction`,
         {
           to: to,
           amount: Math.floor(parseFloat(amount)),

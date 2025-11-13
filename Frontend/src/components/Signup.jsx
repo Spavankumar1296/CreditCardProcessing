@@ -111,7 +111,7 @@ export function Signup() {
 
                         <button
                             onClick={async () => {
-                                const response = await axios.post("http://localhost:3000/api/v1/user/Signup", {
+                                const response = await axios.post(`${API_BASE}/api/v1/user/Signup`, {
                                     FirstName: fref.current.value,
                                     LastName: lref.current.value,
                                     Email: mref.current.value,

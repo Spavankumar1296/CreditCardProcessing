@@ -8,7 +8,7 @@ import {
 } from "../store/atoms/atoms";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 export default function Account() {
   const navigate = useNavigate();
 
@@ -45,7 +45,7 @@ export default function Account() {
   useEffect(() => {
     async function fetchBalance() {
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/Account/balance", authHeaders());
+        const res = await axios.get(`${API_BASE}/api/v1/Account/balance`, authHeaders());
         if (res?.data?.balance !== undefined) setBalance(res.data.balance);
         if (res?.data?.username) {
           setUsername(res.data.username);
@@ -59,7 +59,7 @@ export default function Account() {
     async function fetchProfileIfNeeded() {
       if (!signinUser || !signinUser.email) {
         try {
-          const r = await axios.get("http://localhost:3000/api/v1/user/me", authHeaders());
+          const r = await axios.get(`${API_BASE}/api/v1/user/me`, authHeaders());
           const user = r.data;
           if (user) {
             setSigninUser(user);
@@ -104,7 +104,7 @@ export default function Account() {
         Password: password ? password : undefined,
       };
 
-      const res = await axios.put("http://localhost:3000/api/v1/user/Update", body, authHeaders());
+      const res = await axios.put(`${API_BASE}/api/v1/user/Update`, body, authHeaders());
       setMsg(res?.data?.msg || "Profile updated.");
 
       const newUsername = `${firstName.trim()} ${lastName.trim()}`;
@@ -139,7 +139,7 @@ export default function Account() {
     if (!confirm("Delete your account permanently? This cannot be undone.")) return;
     setLoading(true);
     try {
-      await axios.delete("http://localhost:3000/api/delete-account", authHeaders());
+      await axios.delete(`${API_BASE}/api/delete-account`, authHeaders());
       handleLogout();
     } catch (err) {
       console.error("Delete failed:", err);
