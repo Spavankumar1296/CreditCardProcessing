@@ -8,7 +8,7 @@ export function Signup() {
     const divref = useRef()
     const Navigate = useNavigate()
     const [val, setval] = useState("Show Password")
-    const [username,setusername] = useRecoilState(usernameAtom);
+    const [username, setusername] = useRecoilState(usernameAtom);
     const fref = useRef()
     const lref = useRef()
     const mref = useRef()
@@ -18,7 +18,7 @@ export function Signup() {
             {/* Animated background elements */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-1/4 -left-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+                <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
             </div>
 
             <div className="relative z-10 w-full max-w-md">
@@ -111,7 +111,7 @@ export function Signup() {
 
                         <button
                             onClick={async () => {
-                                const response = await axios.post(`${API_BASE}/api/v1/user/Signup`, {
+                                const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/user/Signup`, {
                                     FirstName: fref.current.value,
                                     LastName: lref.current.value,
                                     Email: mref.current.value,

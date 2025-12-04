@@ -58,7 +58,7 @@ export default function Home() {
   async function fetchBalance() {
     try {
       const res = await axios.get(
-        `${API_BASE}/api/v1/Account/balance`,
+        `${import.meta.env.VITE_API_URL}/api/v1/Account/balance`,
         getAuthHeaderObj()
       );
       setBalance(res.data.balance ?? res.data);
@@ -92,7 +92,7 @@ export default function Home() {
       {/* Animated background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 -left-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
       </div>
 
       <div className="relative z-10 p-6">
@@ -113,7 +113,7 @@ export default function Home() {
                   <div className="text-sm text-indigo-300/70">Secure & Fast Transfers</div>
                 </div>
               </div>
-              
+
               <div className="flex items-center gap-4">
                 <div className="hidden sm:flex flex-col items-end">
                   <div className="text-sm text-gray-400">Welcome,</div>
@@ -255,9 +255,9 @@ export default function Home() {
       {/* Enhanced Balance Modal */}
       {isBalanceOpen && (
         <div className="fixed inset-0 z-40 flex items-center justify-center p-4">
-          <div 
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm" 
-            onClick={() => setIsBalanceOpen(false)} 
+          <div
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={() => setIsBalanceOpen(false)}
           />
           <div className="relative z-50 max-w-lg w-full backdrop-blur-2xl bg-gradient-to-br from-slate-900/95 to-indigo-900/95 border border-white/20 rounded-3xl p-8 shadow-2xl">
             {/* Modal Header */}
@@ -266,9 +266,9 @@ export default function Home() {
                 <h4 className="text-2xl font-bold text-white">Your Balance</h4>
                 <p className="text-sm text-gray-400 mt-1">Available balance</p>
               </div>
-              <button 
-                className="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-gray-400 hover:text-white transition-all" 
-                onClick={() => setIsBalanceOpen(false)} 
+              <button
+                className="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-gray-400 hover:text-white transition-all"
+                onClick={() => setIsBalanceOpen(false)}
                 aria-label="Close"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -290,7 +290,7 @@ export default function Home() {
                   <div className="text-xs text-indigo-400/70">As of now</div>
                 </div>
               </div>
-              
+
               <div className="text-5xl font-bold bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">
                 {balance === null ? "Loading..." : `₹${balance}`}
               </div>
@@ -307,8 +307,8 @@ export default function Home() {
                 </svg>
                 <span>Refresh</span>
               </button>
-              <button 
-                className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 transition-all font-medium text-white shadow-lg hover:shadow-xl" 
+              <button
+                className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 transition-all font-medium text-white shadow-lg hover:shadow-xl"
                 onClick={() => setIsBalanceOpen(false)}
               >
                 Close

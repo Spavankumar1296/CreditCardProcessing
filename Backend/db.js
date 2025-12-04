@@ -1,38 +1,38 @@
 const mongoose = require("mongoose")
-mongoose.connect("mongodb+srv://ooselab:a1ahpsjSEVJIXDW1@cluster0.c0hdkgh.mongodb.net/Paytmdb")
+mongoose.connect(process.env.MONGO_URI)
 
 const SignupUserSchema = new mongoose.Schema({
-    FirstName:{
-        type:String,
-        required:true,
-    },
-    LastName:{
-        type:String,
-        required:true,
-    },
-    Email:{
-        type:String,
-        unique:true,
-        required:true,
-    },
-    Password:{
-        type:String,
-        required:true,
-        trim:true,   
-    }
+  FirstName: {
+    type: String,
+    required: true,
+  },
+  LastName: {
+    type: String,
+    required: true,
+  },
+  Email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  Password: {
+    type: String,
+    required: true,
+    trim: true,
+  }
 })
 
 const BankSchema = new mongoose.Schema({
-    userId:{
-        type: mongoose.Schema.Types.ObjectId, // Reference to User model roiii
-        ref:'Users',
-        unique:true,
-        required:true
-    },
-    Balance:{
-        type:Number,
-        required:true
-    }
+  userId: {
+    type: mongoose.Schema.Types.ObjectId, // Reference to User model roiii
+    ref: 'Users',
+    unique: true,
+    required: true
+  },
+  Balance: {
+    type: Number,
+    required: true
+  }
 })
 
 // models/Transaction.js (or wherever you keep models)
@@ -74,10 +74,10 @@ const TransactionSchema = new mongoose.Schema({
 });
 
 const Transaction = mongoose.model("Transaction", TransactionSchema);
-const UserModel = mongoose.model('Users',SignupUserSchema)
-const Account = mongoose.model('Account',BankSchema)
+const UserModel = mongoose.model('Users', SignupUserSchema)
+const Account = mongoose.model('Account', BankSchema)
 
-module.exports ={
-    UserModel,Account,Transaction
-} 
+module.exports = {
+  UserModel, Account, Transaction
+}
 

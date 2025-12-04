@@ -56,7 +56,7 @@ export function Transfer() {
       const token = localStorage.getItem("token");
       // console.log("token : ", token);
       const res = await axios.post(
-        `${API_BASE}/api/v1/user/bulk`,
+        `${import.meta.env.VITE_API_URL}/api/v1/user/bulk`,
         {
           auth: token,
         },
@@ -103,7 +103,7 @@ export function Transfer() {
     try {
       const token = localStorage.getItem("token") || "";
       const res = await axios.post(
-        `${API_BASE}/api/v1/Account/transaction`,
+        `${import.meta.env.VITE_API_URL}/api/v1/Account/transaction`,
         {
           to: to,
           amount: Math.floor(parseFloat(amount)),
@@ -118,7 +118,7 @@ export function Transfer() {
       );
 
       setSuccess(res?.data?.msg ?? "Transfer successful.");
-      
+
       // Store the transfer details in Recoil
       setToId(to);
       setToUser(toDisplay || to);
@@ -126,11 +126,11 @@ export function Transfer() {
       // Clear the form
       setAmount("");
       setNote("");
-      
+
       // IMPORTANT: Clear any cached transaction data
       // This ensures ViewTransactions will fetch fresh data
       sessionStorage.removeItem('cachedTransactions');
-      
+
       // Navigate after a short delay to show success message
       setTimeout(() => {
         navigate("/dashboard");
@@ -168,7 +168,7 @@ export function Transfer() {
       {/* Animated background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 -left-20 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
       </div>
 
       <div className="relative z-10 p-8">

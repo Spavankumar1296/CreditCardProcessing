@@ -64,26 +64,26 @@ export default function ViewTransactions() {
 
   useEffect(() => {
     let cancelled = false;
-    
+
     async function fetchTx() {
       setError(null);
       setLoading(true);
-      
+
       try {
         // IMPORTANT: Add timestamp to prevent caching
         const timestamp = new Date().getTime();
         const res = await axios.get(
-          `${API_BASE}/api/v1/Account/transactions?t=${timestamp}`, 
+          `${import.meta.env.VITE_API_URL}/api/v1/Account/transactions?t=${timestamp}`,
           authHeaders()
         );
-        
+
         if (cancelled) return;
 
         const raw = Array.isArray(res.data)
           ? res.data
           : (res.data && Array.isArray(res.data.transactions))
-          ? res.data.transactions
-          : [];
+            ? res.data.transactions
+            : [];
 
         const normalized = raw.map((t) => {
           const senderId =
@@ -179,7 +179,7 @@ export default function ViewTransactions() {
       {/* Animated background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 -left-20 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
       </div>
 
       <div className="relative z-10 p-6">
@@ -202,8 +202,8 @@ export default function ViewTransactions() {
               </div>
 
               <div className="flex items-center gap-3">
-                <button 
-                  onClick={() => navigate("/dashboard")} 
+                <button
+                  onClick={() => navigate("/dashboard")}
                   className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 text-gray-100 font-medium transition-all flex items-center gap-2 group"
                 >
                   <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -211,8 +211,8 @@ export default function ViewTransactions() {
                   </svg>
                   <span>Back</span>
                 </button>
-                <button 
-                  onClick={() => setRefreshKey((k) => k + 1)} 
+                <button
+                  onClick={() => setRefreshKey((k) => k + 1)}
                   className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-medium transition-all shadow-lg hover:shadow-indigo-500/50 flex items-center gap-2 group"
                 >
                   <svg className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -229,13 +229,12 @@ export default function ViewTransactions() {
             {/* Filter Pills & Count */}
             <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
               <div className="flex items-center gap-3">
-                <button 
-                  onClick={() => setFilter("all")} 
-                  className={`px-5 py-2.5 rounded-xl font-medium transition-all ${
-                    filter === "all" 
-                      ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg" 
+                <button
+                  onClick={() => setFilter("all")}
+                  className={`px-5 py-2.5 rounded-xl font-medium transition-all ${filter === "all"
+                      ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
                       : "bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10"
-                  }`}
+                    }`}
                 >
                   <span className="flex items-center gap-2">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -244,13 +243,12 @@ export default function ViewTransactions() {
                     All
                   </span>
                 </button>
-                <button 
-                  onClick={() => setFilter("sent")} 
-                  className={`px-5 py-2.5 rounded-xl font-medium transition-all ${
-                    filter === "sent" 
-                      ? "bg-gradient-to-r from-red-600 to-red-500 text-white shadow-lg" 
+                <button
+                  onClick={() => setFilter("sent")}
+                  className={`px-5 py-2.5 rounded-xl font-medium transition-all ${filter === "sent"
+                      ? "bg-gradient-to-r from-red-600 to-red-500 text-white shadow-lg"
                       : "bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10"
-                  }`}
+                    }`}
                 >
                   <span className="flex items-center gap-2">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -259,13 +257,12 @@ export default function ViewTransactions() {
                     Sent
                   </span>
                 </button>
-                <button 
-                  onClick={() => setFilter("received")} 
-                  className={`px-5 py-2.5 rounded-xl font-medium transition-all ${
-                    filter === "received" 
-                      ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg" 
+                <button
+                  onClick={() => setFilter("received")}
+                  className={`px-5 py-2.5 rounded-xl font-medium transition-all ${filter === "received"
+                      ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg"
                       : "bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10"
-                  }`}
+                    }`}
                 >
                   <span className="flex items-center gap-2">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -319,21 +316,20 @@ export default function ViewTransactions() {
                   // console.log("counter party name :", counterpartyName);
 
                   return (
-                    <div 
-                      key={t.id} 
+                    <div
+                      key={t.id}
                       className="group backdrop-blur-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-indigo-500/50 rounded-xl p-5 transition-all"
                     >
                       <div className="flex items-start justify-between gap-4">
                         {/* Left: Icon + Details */}
                         <div className="flex items-start gap-4 flex-1">
                           {/* Icon */}
-                          <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg ${
-                            direction === "sent" 
-                              ? "bg-gradient-to-br from-red-500 to-red-600" 
-                              : direction === "received" 
-                              ? "bg-gradient-to-br from-green-500 to-emerald-600" 
-                              : "bg-gradient-to-br from-gray-500 to-gray-600"
-                          }`}>
+                          <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg ${direction === "sent"
+                              ? "bg-gradient-to-br from-red-500 to-red-600"
+                              : direction === "received"
+                                ? "bg-gradient-to-br from-green-500 to-emerald-600"
+                                : "bg-gradient-to-br from-gray-500 to-gray-600"
+                            }`}>
                             {direction === "sent" ? (
                               <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
@@ -374,7 +370,7 @@ export default function ViewTransactions() {
                                 </>
                               )}
                             </div>
-                            
+
                             {t.note && (
                               <div className="flex items-start gap-2 mt-2">
                                 <svg className="w-4 h-4 text-gray-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -395,13 +391,12 @@ export default function ViewTransactions() {
 
                         {/* Right: Status Badge */}
                         <div className="flex flex-col items-end gap-2">
-                          <div className={`px-4 py-2 rounded-lg font-semibold text-sm shadow-md ${
-                            direction === "sent" 
-                              ? "bg-red-500/20 text-red-300 border border-red-500/30" 
-                              : direction === "received" 
-                              ? "bg-green-500/20 text-green-300 border border-green-500/30" 
-                              : "bg-gray-500/20 text-gray-300 border border-gray-500/30"
-                          }`}>
+                          <div className={`px-4 py-2 rounded-lg font-semibold text-sm shadow-md ${direction === "sent"
+                              ? "bg-red-500/20 text-red-300 border border-red-500/30"
+                              : direction === "received"
+                                ? "bg-green-500/20 text-green-300 border border-green-500/30"
+                                : "bg-gray-500/20 text-gray-300 border border-gray-500/30"
+                            }`}>
                             {direction === "sent" ? "Sent" : direction === "received" ? "Received" : "—"}
                           </div>
                         </div>
